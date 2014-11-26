@@ -10,10 +10,10 @@ public class MailClient
     private String user;
     
     
-    public MailClient(MailServer newServer, String myUser)
+    public MailClient(MailServer server, String user)
     {
-        server = newServer;
-        user = myUser;
+        this.server = server;
+        this.user = user;
     }
     
     public MailItem getNextMailItem()
