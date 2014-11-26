@@ -9,13 +9,14 @@ public class MailItem
     private String from;
     private String to;
     private String message;
+    private String asunto;
     
-    
-    public MailItem(String newFrom, String newTo, String newMessage)
+    public MailItem(String newFrom, String newTo, String newMessage, String asunto)
     {
         this.from = from;
         this.to = to;
         this.message = message;
+        this.asunto = asunto;
     }
     
     public String getFrom()
@@ -37,6 +38,7 @@ public class MailItem
     {
         System.out.println("from: " + from);
         System.out.println("to: " + to);
+         System.out.println("asunto: " + asunto);
         System.out.println("message: " + message);
     }
 }
