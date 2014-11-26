@@ -10,11 +10,12 @@ public class MailItem
     private String to;
     private String message;
     
+    
     public MailItem(String newFrom, String newTo, String newMessage)
     {
-        from = newFrom;
-        to = newTo;
-        message = newMessage;
+        this.from = from;
+        this.to = to;
+        this.message = message;
     }
     
     public String getFrom()
