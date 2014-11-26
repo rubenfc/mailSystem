@@ -8,5 +8,5 @@ comment2.target=java.lang.String\ getTo()
 comment3.params=
 comment3.target=java.lang.String\ getMessage()
 comment4.params=
-comment4.target=void\ printMessage()
+comment4.target=void\ print()
 numComments=5

@@ -32,7 +32,7 @@ public class MailItem
         return message;
     }
     
-    public void printMessage()
+    public void print()
     {
         System.out.println("from: " + from);
         System.out.println("to: " + to);
