@@ -11,7 +11,7 @@ public class MailItem
     private String message;
     private String asunto;
     
-    public MailItem(String newFrom, String newTo, String newMessage, String asunto)
+    public MailItem(String from, String to, String message, String asunto)
     {
         this.from = from;
         this.to = to;
@@ -41,4 +41,6 @@ public class MailItem
          System.out.println("asunto: " + asunto);
         System.out.println("message: " + message);
     }
+    
+    
 }
