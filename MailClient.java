@@ -6,51 +6,88 @@
  */
 public class MailClient
 {
+    // instance variables - replace the example below with your own
     private MailServer server;
     private String user;
-    private MailItem lastEmail;
-    
+    private String lastEmail;
+    private int numberOfSend;
+    private int numberOfSpam;
+    private int numberOfRecive;
+    private MailItem lastSpam;
+
     public MailClient(MailServer server, String user)
     {
         this.server = server;
         this.user = user;
     }
-    
+ 
     public MailItem getNextMailItem()
     {
-        MailItem item = server.getNextMailItem(user);
-        lastEmail = item;
-        return server.getNextMailItem(user);
+        MailItem email = server.getNextMailItem(user);
+        String message = email.getMessage();
+        String spam1 = "viagra";
+        String spam2 = "oferta";
+        Boolean found1;
+        Boolean found2;
+        found1 = message.contains(spam1);
+        found2 = message.contains(spam2);
+        if (found1 == true || found2 == true)
+        {
+            email = lastSpam;
+            email = null;
+        }
+        else
+        {
+            lastEmail = email.getMessage();
+        }
+        return email;
     }
    
     public void printNextMailItem()
     {
-       MailItem item = server.getNextMailItem(user);
-       lastEmail = item;
-        if(item == null)
-        {
-            System.out.println("No new mail.");
+        MailItem email = server.getNextMailItem(user);
+        String message = email.getMessage();
+        String spam1 = "viagra";
+        String spam2 = "oferta";
+        String spam3 = "proyecto";
+        Boolean found1;
+        Boolean found2;
+        Boolean found3;
+        found1 = message.contains(spam1);
+        found2 = message.contains(spam2);
+        found3 = message.contains(spam3);
+        if (email == null) {
+            System.out.println("No hay mensajes.");
         }
-        else 
-        {
-            item.print();
-            
+        else if (found3 == true){
+            email.print();
+            lastEmail = email.getMessage();
+            int countRecive = +1;
+        }
+        else if (found1 == true || found2 == true){
+            System.out.println("Tu mensaje contenia un spam");
+            int countRecive = +1;
+            int countSpam = +1;
+        }
+        else {
+            email.print();
+            lastEmail = email.getMessage();
+            int countRecive = +1;
         }
     }
-    
-    public void sendMailItem(String address, String message, String asunto)
-    {
-        MailItem emailToSend = new MailItem(user, address, message, asunto);
+   
+    public void sendMailItem(String to, String subject, String message){
+        MailItem emailToSend = new MailItem(user, to, subject, message);
         server.post(emailToSend);
+        int countSend = +1;
     }
     
-    public void sloopMail()
+    public void howManyMailItems()
     {
-        int numberOfMails = server.howManyMailItems(user);
-        System.out.println("numero de emails en el servidor" + numberOfMails);
+        System.out.println("Tienes " + server.howManyMailItems(user) + " correos pendientes.");
     }
-    
-    public void getNextMailItemAndAutorespond()
+   
+     public void getNextMailItemAndAutorespond()
     {
         MailItem email = server.getNextMailItem(user);
         if(email != null)
@@ -62,8 +99,8 @@ public class MailClient
             server.post(autorespond);
         }
     }
-    
-    public void printLastEmail()
+        
+     public void printLastEmail()
     {
         if(lastEmail == null)
         {
@@ -71,8 +108,28 @@ public class MailClient
         }
         else 
         {
-             
-            lastEmail.print();
+              System.out.println("El ultimo mensaje es:" + lastEmail);
+        }
+    }
+    
+    public void stadistics()
+    {
+        System.out.println("Mensajes recividos: " + numberOfRecive);
+        System.out.println("mensajes enviados: " + numberOfSend);
+        long spamPor = numberOfRecive / numberOfSpam * 100;
+        System.out.println("Mensajes recividos de spam: " + numberOfRecive + "%");
+    }
+    
+    public void printLastSpam()
+    {
+        if(lastSpam ==null)
+        {
+            System.out.println("no hay spam");
+        }
+    
+        else 
+        {
+            System.out.println("El ultimo spam es:" + lastSpam);
         }
     }
 }
